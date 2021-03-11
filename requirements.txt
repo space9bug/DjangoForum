@@ -5,7 +5,7 @@ bs4==0.0.1
 certifi==2020.12.5
 chardet==4.0.0
 cloudscraper==1.2.48
-Django==3.0.6
+Django==3.0.7
 geographiclib==1.50
 geoip2==3.0.0
 geopy==2.1.0
