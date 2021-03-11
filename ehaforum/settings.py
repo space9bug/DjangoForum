@@ -51,9 +51,9 @@ WSGI_APPLICATION = 'ehaforum.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ehaforum',
-        'USER': 'root',
-        'PASSWORD': 'admin@2018',
+        'NAME': '数据库名称',
+        'USER': '数据库用户名',
+        'PASSWORD': '数据库密码',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {'charset': 'utf8mb4'}

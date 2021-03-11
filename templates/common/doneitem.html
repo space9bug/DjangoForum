@@ -121,9 +121,9 @@
     {% endif %}
     <div class="post-state-details mt-1">
         <div>
-            <img src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/icons/reactions_like.png"
+            <img src="/static/images/icons/reactions_like.png"
                  alt="">
-            <img src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/icons/reactions_love.png"
+            <img src="/static/images/icons/reactions_love.png"
                  alt="">
             <p class="likenumb-{{ thread.id }}">{{ thread.likenumb }} </p>
         </div>
@@ -146,7 +146,7 @@
         <a href="#"><i class="uil-heart"></i>{{ thread.commnumb }}<span>评论</span></a>
     </div>
     <input style="width: 1px;border: 0" id="shareinpt-{{ thread.id }}" type="text"
-           value="https://www.4nmb.com/thread/{{ thread.id }}">
+           value="/thread/{{ thread.id }}">
     <div class="post-state-btns" data-clipboard-action="copy"
          data-clipboard-target="#shareinpt-{{ thread.id }}"
          id="sharebtn"><i class="uil-share-alt"></i> <span>分享 </span></div>
