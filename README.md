@@ -110,7 +110,7 @@
 
 <div>&nbsp;</div>
 
-<div>![](https://pic.4nmb.com/images/2021/03/10/QQ20210311105436.png)</div>
+![](https://pic.4nmb.com/images/2021/03/10/QQ20210311105436.png)
 
 <div>&nbsp;</div>
 
@@ -118,10 +118,10 @@
 
 <div>微信</div>
 
-<div>![](https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/wx.png)</div>
+![](https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/wx.png)
 
 <div>&nbsp;</div>
 
 <div>支付宝</div>
 
-<div>![](https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/zfb.jpg)</div>
+![](https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/zfb.jpg)
