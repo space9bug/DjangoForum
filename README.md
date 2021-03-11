@@ -4,6 +4,10 @@
 
 部署遇到的任何问题都可以在社区提出或者邮件联系，或者提issue。
 
+GIthub：[https://github.com/xyuansec/DjangoForum](https://github.com/xyuansec/DjangoForum)
+
+码云：[https://gitee.com/blackxu/DjangoForum](https://gitee.com/blackxu/DjangoForum)
+
 **代码中涉及到百度内容审核API（需要自己申请），邮件发送功能（需要自己在utils.py设置邮箱密码），黑名单验证，网站seo（settings.py）等需要自己填写。**
 
 **技术支持**
