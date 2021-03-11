@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'sm@jcwdju=r=n8$s@y=bruva0@14fhvy4k!6u6+dr4q^8qxi_+'
+SECRET_KEY = '123456'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
