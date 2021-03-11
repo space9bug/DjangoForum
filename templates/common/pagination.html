@@ -1,0 +1,68 @@
+{% if paginator and paginator.total_pages > 1 %}
+    <ul class="uk-pagination uk-flex-center" uk-margin>
+        {% if objs.has_previous %}
+            {% if paginator.nickname %}
+                <li><a href="?type={{ paginator.nickname }}&page={{ objs.previous_page_number }}">
+                    <span uk-pagination-previous></span></a></li>
+            {% else %}
+                <li><a href="?page={{ objs.previous_page_number }}">
+                    <span uk-pagination-previous></span></a></li>
+            {% endif %}
+        {% else %}
+            <li class="uk-disabled"><span uk-pagination-previous></span></li>
+        {% endif %}
+        {% if paginator.first %}
+            {% if paginator.nickname %}
+                <li><a href="?type={{ paginator.nickname }}&page=1">1</a></li>
+            {% else %}
+                <li><a href="?page=1">1</a></li>
+            {% endif %}
+        {% endif %}
+        {% if paginator.left %}
+            {% for i in paginator.left %}
+                {% if paginator.nickname %}
+                    <li><a href="?type={{ paginator.nickname }}&page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if paginator.nickname %}
+            <li class="uk-active"><a
+                    href="?type={{ paginator.nickname }}&page={{ paginator.page }}">{{ paginator.page }}</a></li>
+        {% else %}
+            {% if paginator.page %}
+                <li class="uk-active"><a href="?page={{ paginator.page }}">{{ paginator.page }}</a></li>
+            {% endif %}
+        {% endif %}
+        {% if paginator.right %}
+            {% for i in paginator.right %}
+                {% if paginator.nickname %}
+                    <li><a href="?type={{ paginator.nickname }}&page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if paginator.last %}
+            {% if paginator.nickname %}
+                <li>
+                    <a href="?type={{ paginator.nickname }}&page={{ paginator.total_pages }}">{{ paginator.total_pages }}</a>
+                </li>
+            {% else %}
+                <li><a href="?page={{ paginator.total_pages }}">{{ paginator.total_pages }}</a></li>
+            {% endif %}
+        {% endif %}
+        {% if objs.has_next %}
+            {% if paginator.nickname %}
+                <li><a href="?type={{ paginator.nickname }}&page={{ objs.next_page_number }}">
+                    <span uk-pagination-next></span></a></li>
+            {% else %}
+                <li><a href="?page={{ objs.next_page_number }}">
+                    <span uk-pagination-next></span></a></li>
+            {% endif %}
+        {% else %}
+            <li class="uk-disabled"><span uk-pagination-next></span></li>
+        {% endif %}
+    </ul>
+{% endif %}

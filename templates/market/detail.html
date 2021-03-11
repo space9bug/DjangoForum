@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>{% if isreaded %}（新消息）{% endif %}
+        {{ market.mketname }} - 商品市场 - {{ web_config.title }}</title>
+    <meta name="keywords" content="{{ market.mketname }},商品市场,商品交易,虚拟商品">
+    <meta name="description" content="{{ market.mketname }},{{ market.contents }},市肥宅中心商品市场交易中心">
+{% endblock %}
+{% block content %}
+    <div class="sl_jobs_list">
+        <div class="sl_jobs_list_media">
+            <div uk-lightbox>
+                <a href="{{ market.attachmt_source }}">
+                    <img class="lazyload" style="width: 100%" src="{{ market.attachmt }}"
+                         data-img="{{ market.attachmt_source }}" alt="{{ market.mketname }}">
+                </a>
+            </div>
+        </div>
+        <div class="sl_jobs_list_info">
+            <span class="sl_jobs_list_info_price">${{ market.mktprice }}肥宅币/{{ market.howmanyp }}人购</span>
+            <h3 style="white-space: normal"><a href="#">{{ market.mketname }}</a></h3>
+            <ul>
+                <li>发布者：<a href="/profile/?u={{ market.postuser.nickname }}">{{ market.postuser.nickname }}</a></li>
+            </ul>
+            <div class="sl_jobs_list_info_tags mb-3">
+                <span>分类：{{ market.mkettype.typename }}</span>
+                <span class="ajax-time" title="{{ market.creatime |date:"Y-m-d" }}">
+                    时间：{{ market.creatime |date:"Y-m-d" }}</span>
+                <span>库存：{{ market.mktstock }}</span>
+                <span style="text-transform: none;">联系：{{ market.mketchat }}</span>
+            </div>
+            <div style="word-wrap:break-word; word-break:break-all">
+                {{ market.contents|safe }}
+            </div>
+            {% if ismypayed or market.postuser == user %}
+                <div class="uk-alert-warning" uk-alert>
+                    <p>您已购买了该商品，可以查看隐藏内容</p>
+                    <div style="word-wrap:break-word; word-break:break-all">
+                        {{ market.hidecont|safe }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="uk-alert-warning" uk-alert>
+                    <p>隐藏内容付费可见</p>
+                </div>
+            {% endif %}
+            {% if user %}
+                {% if user != market.postuser and not ismypayed %}
+                    <button class="uk-button uk-button-danger" data-id="{{ market.id }}"
+                            onclick="paymarket(this)" uk-margin>立即购买
+                    </button>
+                    <button class="uk-button uk-button-primary uk-margin-small-right" type="button"
+                            uk-toggle="target: #modal-example">积分充值
+                    </button>
+                    {% include "common/modal.html" %}
+                {% endif %}
+            {% else %}
+                <a href="/login/">
+                    <button class="uk-button uk-button-primary uk-margin-small-right" uk-margin>请先登录</button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+from django.urls import path
+
+import myapp.views as views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('tools/', views.tools, name='tools'),
+    path('about/', views.about, name='about'),
+    path('login/', views.login, name='login'),
+    path('search/', views.search, name='search'),
+    path('market/', views.market, name='market'),
+    path('invite/', views.invite, name='invite'),
+    path('logout/', views.logout, name='logout'),
+    path('active/', views.active, name='active'),
+    path('balance/', views.balance, name='balance'),
+    path('profile/', views.profile, name='profile'),
+    path('publish/', views.publish, name='publish'),
+    path('mypoint/', views.mypoint, name='mypoint'),
+    path('pbmarket/', views.pbmarket, name='pbmarket'),
+    path('register/', views.register, name='register'),
+    path('statistic/', views.statistic, name='statistic'),
+    path('signpoint/', views.signpoint, name='signpoint'),
+    path('todaypoint/', views.todaypoint, name='todaypoint'),
+    path('good/<int:type>/<str:id>', views.good, name='good'),
+    path('thread/<str:threadid>/', views.detail, name='detail'),
+    path('paymarket/<int:id>', views.paymarket, name='paymarket'),
+    path('comment/<str:threadid>', views.comment, name='comment'),
+    path('market/<int:id>/', views.marketdetail, name='marketdetail'),
+    path('fastcomment/<str:threadid>', views.comment, name='comment'),
+    path('notifications/', views.notifications, name='notifications'),
+    path('setbackswih/<int:backflag>', views.setbackswih, name='setbackswih'),
+    path('setniminswh/<int:niminflag>', views.setniminswh, name='setniminswh'),
+    path('setlocation/<int:localflag>', views.setlocation, name='setlocation'),
+    path('active/<str:nick>/<str:code>', views.emailactive, name='emailactive'),
+    path('setrecvemail/<int:recvflag>', views.setrecvemail, name='setrecvemail'),
+]

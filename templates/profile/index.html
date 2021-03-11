@@ -1,0 +1,651 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>{% if isreaded %}（新消息）{% endif %}个人主页 - {{ web_config.title }}</title>
+    <meta name="keywords" content="{{ web_config.keywords }}">
+    <meta name="description" content="{{ web_config.description }}">
+{% endblock %}
+{% block header %}
+    {% include 'common/header.html' %}
+    <script src="https://api.map.baidu.com/api?v=2.0&ak=jOn0GQPIeXI3QsqkAtjztptU4c3AagC0"></script>
+{% endblock %}
+{% block content %}
+    <div id="spinneroverlay"></div>
+    <div class="profile">
+        <form action="/profile/" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <div class="profile-cover">
+                {% if other %}
+                    {% if not other.userback %}
+                        <img class="lazyload"
+                             src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/loading.jpg"
+                             data-img="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/profile-cover.jpg"
+                             alt="" id="userBackreal">
+                    {% else %}
+                        <img class="lazyload"
+                             src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/loading.jpg"
+                             data-img="{{ other.userback }}"
+                             alt="" id="userBackreal">
+                    {% endif %}
+                {% else %}
+                    {% if not user.userback %}
+                        <img class="lazyload"
+                             src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/loading.jpg"
+                             data-img="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/profile-cover.jpg"
+                             alt="" id="userBackreal">
+                    {% else %}
+                        <img class="lazyload"
+                             src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/loading.jpg"
+                             data-img="{{ user.userback }}"
+                             alt="" id="userBackreal">
+                    {% endif %}
+                {% endif %}
+                {% if sameuser %}
+                    <a href="javascript:void(0)">
+                        <div uk-form-custom>
+                            <input type="file" id="userBackfile" name="userBackimg">
+                            <i class="uil-camera"></i>更换封面
+                        </div>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="profile-details">
+                <div class="profile-image">
+                    {% if other %}
+                        <img src="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+                                
+                                
+                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                {% if other.usravatr %}{{ other.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                             alt="">
+                    {% else %}
+                        <img id="my_avator" src="
+                                {% if user.usravatr %}{{ user.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                             alt="">
+                        <div uk-form-custom="" class="uk-form-custom">
+                            <input type="file" name="uploadfile" id="uploadAvator">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24">
+                                <path fill="#4db3f6"
+                                      d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z"></path>
+                            </svg>
+                            <span id="uploadAvatorName">上传头像，上传后需要按ctrl+shift+f5刷新下缓存</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="profile-details-info">
+                    {% if sameuser %}
+                        <h1>{{ user.nickname }}</h1>
+                        {% if error %}
+                            <div class="uk-alert-danger" uk-alert>
+                                <a class="uk-alert-close" uk-close></a>
+                                <p>{{ error }}</p>
+                            </div>
+                        {% endif %}
+                        {% if user and not user.usersage %}
+                            <div class="uk-alert-warning" uk-alert>
+                                <a class="uk-alert-close" uk-close></a>
+                                <p>您需要先填写性别和年龄！然后点击更新信息。</p>
+                            </div>
+                        {% endif %}
+                        <div class="uk-form-horizontal uk-margin-large">
+                            <div class="uk-margin">
+                                <label class="uk-form-label" for="form-horizontal-text">
+                                    邮箱{% if not user.activeml %}（
+                                    <a id="sendactive" href="javascript:void(0);" onclick="sendactive()">重发</a>
+                                    ）{% else %}（已激活）{% endif %}
+                                </label>
+                                <div class="uk-form-controls">
+                                    <input class="uk-input w-50" id="form-horizontal-text"
+                                           type="text" value="{{ user.usermail }}" disabled>
+                                </div>
+                            </div>
+                            <div class="uk-margin">
+                                <label class="uk-form-label" for="form-horizontal-text">个性签名</label>
+                                <div class="uk-form-controls">
+                                    <input class="uk-input w-50" id="form-horizontal-text" name="signal"
+                                           type="text"
+                                           value="
+{% if user.whatdoth %}{{ user.whatdoth }}{% else %}这个人很懒，没有留下任何签名~{% endif %}">
+                                </div>
+                            </div>
+                            <div class="uk-margin">
+                                <label class="uk-form-label" for="form-horizontal-text">个人主页</label>
+                                <div class="uk-form-controls">
+                                    <input class="uk-input w-50" id="form-horizontal-text" name="mysite"
+                                           type="text" value="{% if user.profsite %}{{ user.profsite }}{% endif %}"
+                                           placeholder="可选">
+                                </div>
+                            </div>
+                            <div class="uk-margin">
+                                <label class="uk-form-label" for="form-horizontal-text">性别</label>
+                                <div class="uk-form-controls">
+                                    <select class="uk-select w-50" name="gender" id="form-horizontal-text" required>
+                                        {% if user.urgender %}
+                                            {% if user.urgender == "男" %}
+                                                <option value="男" selected>男</option>
+                                                <option value="女">女</option>
+                                            {% elif user.urgender == "女" %}
+                                                <option value="女" selected>女</option>
+                                                <option value="男">男</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="uk-margin">
+                                <label class="uk-form-label" for="form-horizontal-text">您的年龄</label>
+                                <div class="uk-form-controls">
+                                    <input class="uk-input w-50" id="form-horizontal-text" name="usrage"
+                                           type="text"
+                                           value="{% if user.usersage %}{{ user.usersage }}{% endif %}"
+                                           placeholder="填写您的年龄">
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% if other %}
+                            <h1>{{ other.nickname }} </h1>
+                            <p>{% if other.whatdoth %}{{ other.whatdoth }}{% else %}这个人很懒，没有留下任何签名~{% endif %}</p>
+                            {% if other.profsite %}<p>{{ other.profsite }}</p>{% endif %}
+                            <p style="color: brown;"><i class="fa fa-jpy" aria-hidden="true"></i> {{ other.pointnum }}肥宅币
+                            </p>
+                        {% else %}
+                            <h1>{{ user.nickname }} </h1>
+                            <p>{% if user.whatdoth %}{{ user.whatdoth }}{% else %}这个人很懒，没有留下任何签名~{% endif %}</p>
+                            {% if user.profsite %}<p>{{ user.profsite }}</p>{% endif %}
+                            <p style="color: brown;"><i class="fa fa-jpy" aria-hidden="true"></i> {{ user.pointnum }}肥宅币
+                            </p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="nav-profile uk-sticky" uk-sticky="media : @s" style="">
+                <div class="py-md-2 uk-flex-last">
+                    {% if sameuser %}
+                        <button type="submit" class="button primary mr-2" uk-tooltip="title: 点击后更新所有已修改">更新信息</button>
+                    {% endif %}
+                </div>
+                <div>
+                    <nav class="responsive-tab ml-lg-3">
+                        <ul>
+                            <li class="uk-active"><a class="active" href="#">时间线</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </form>
+        <div class="uk-sticky-placeholder" style="height: 62px; margin: 0" hidden=""></div>
+    </div>
+    <div class="section-small">
+        <div uk-grid="" class="uk-grid">
+            <div class="uk-width-2-3@m fead-area uk-first-column">
+                <div class="post-newer mt-lg-2">
+                    {% if objs|length == 0 %}
+                        <p>此人很低调，还没有发表过动态哦！</p>
+                    {% endif %}
+                    {% for thread in objs %}
+                        {% include 'index/thread.html' %}
+                    {% endfor %}
+                    {% if objs.count > 9 %}<p>仅显示前10条记录</p>{% endif %}
+                </div>
+            </div>
+            <div class="uk-width-expand ml-lg-2">
+                <div class="sl_user-widget">
+                    <div class="sl_user-widget-wrap-header">
+                        <div class="sl_user-widget-wrap-header-left"><span><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="16" height="16"
+                                                                                viewBox="0 0 24 24"><path
+                                fill="currentColor"
+                                d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"></path></svg></span>
+                            <h4>用户资料 </h4></div>
+                    </div>
+                    <ul class="sl_right_user_info">
+                        <li class="list-group-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"></path>
+                            </svg>
+                            <span class="text-success">在线 </span></li>
+                        <li class="list-group-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="M20 22H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1zm-1-2V4H5v16h14zM7 6h4v4H7V6zm0 6h10v2H7v-2zm0 4h10v2H7v-2zm6-9h4v2h-4V7z"></path>
+                            </svg>
+                            <span id="user_post_count">{{ thread_count }}</span> 条动态，<span
+                                id="user_post_count">{{ comment_count }}</span> 条评论
+                        </li>
+                        <li class="list-group-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="M9,11.75A1.25,1.25 0 0,0 7.75,13A1.25,1.25 0 0,0 9,14.25A1.25,1.25 0 0,0 10.25,13A1.25,1.25 0 0,0 9,11.75M15,11.75A1.25,1.25 0 0,0 13.75,13A1.25,1.25 0 0,0 15,14.25A1.25,1.25 0 0,0 16.25,13A1.25,1.25 0 0,0 15,11.75M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,11.71 4,11.42 4.05,11.14C6.41,10.09 8.28,8.16 9.26,5.77C11.07,8.33 14.05,10 17.42,10C18.2,10 18.95,9.91 19.67,9.74C19.88,10.45 20,11.21 20,12C20,16.41 16.41,20 12,20Z"></path>
+                            </svg>
+                            {% if other %}
+                                {% if other.urgender %}
+                                    <span>{{ other.urgender }}</span>
+                                {% endif %}
+                                {% if other.usersage %}
+                                    ，<span>{{ other.usersage }}岁</span>
+                                {% endif %}
+                                {% if not other.urgender and not other.usersage %}
+                                    未填写性别
+                                {% endif %}
+                            {% else %}
+                                {% if user.urgender %}
+                                    <span>{{ user.urgender }}</span>
+                                {% endif %}
+                                {% if user.usersage %}
+                                    ，<span>{{ user.usersage }}岁</span>
+                                {% endif %}
+                                {% if not user.urgender and not user.usersage %}
+                                    未填写性别
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z"></path>
+                            </svg>
+                            {% if other %}
+                                <span>Lv{{ other.usrgrade }}</span>
+                            {% else %}
+                                <span>Lv{{ user.usrgrade }}</span>
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="M10,2H14A2,2 0 0,1 16,4V6H20A2,2 0 0,1 22,8V19A2,2 0 0,1 20,21H4C2.89,21 2,20.1 2,19V8C2,6.89 2.89,6 4,6H8V4C8,2.89 8.89,2 10,2M14,6V4H10V6H14Z"></path>
+                            </svg>
+                            {% if other %}
+                                <span>{{ other.pointnum }}肥宅币</span>
+                            {% else %}
+                                <span>{{ user.pointnum }}肥宅币</span>
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="M3.9,12C3.9,10.29 5.29,8.9 7,8.9H11V7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H11V15.1H7C5.29,15.1 3.9,13.71 3.9,12M8,13H16V11H8V13M17,7H13V8.9H17C18.71,8.9 20.1,10.29 20.1,12C20.1,13.71 18.71,15.1 17,15.1H13V17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7Z"></path>
+                            </svg>
+                            {% if other %}
+                                {% if other.profsite %}
+                                    <a href="{{ other.profsite }}?utm_source=4nmb.com"
+                                       target="_blank">{{ other.profsite }}</a>
+                                {% else %}
+                                    <a href="#" target="_blank">无个人主页</a>
+                                {% endif %}
+                            {% else %}
+                                {% if user.profsite %}
+                                    <a href="{{ user.profsite }}?utm_source=4nmb.com"
+                                       target="_blank">{{ user.profsite }}</a>
+                                {% else %}
+                                    <a href="#" target="_blank">无个人主页</a>
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+                            </svg>
+                            {% if other %}
+                                {% if other.whatdoth %}{{ other.whatdoth }}{% else %}这个人很懒，没有留下任何签名~{% endif %}
+                            {% else %}
+                                {% if user.whatdoth %}{{ user.whatdoth }}{% else %}这个人很懒，没有留下任何签名~{% endif %}
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                      d="M17.9,17.39C17.64,16.59 16.89,16 16,16H15V13A1,1 0 0,0 14,12H8V10H10A1,1 0 0,0 11,9V7H13A2,2 0 0,0 15,5V4.59C17.93,5.77 20,8.64 20,12C20,14.08 19.2,15.97 17.9,17.39M11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.78 4.21,10.21L9,15V16A2,2 0 0,0 11,18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"></path>
+                            </svg>
+                            {% if other %}
+                                {% if other.location %}
+                                    {% if not other.location.result.formatted_address %}
+                                        获取不到位置
+                                    {% else %}
+                                        {{ other.location.result.formatted_address }}
+                                    {% endif %}
+                                {% else %}
+                                    未开启定位
+                                {% endif %}
+                            {% else %}
+                                {% if user.location %}
+                                    {% if not user.location.result.formatted_address %}
+                                        获取不到位置
+                                    {% else %}
+                                        {{ user.location.result.formatted_address }}
+                                    {% endif %}
+                                {% else %}
+                                    未开启定位
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                        {% if other.distance %}
+                            <li class="list-group-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                          d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"></path>
+                                </svg>
+                                距离您{{ other.distance }}公里
+                            </li>
+                        {% endif %}
+                        {% if other %}
+                            {% if other.location %}
+                                {% if other.location.result.formatted_address %}
+                                    <script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=jOn0GQPIeXI3QsqkAtjztptU4c3AagC0"></script>
+                                    <li class="list-group-item">
+                                        <div id="map" style="width: 100%;height: 200px"></div>
+                                    </li>
+                                    <script>
+                                        var map = new BMapGL.Map('map');
+                                        map.centerAndZoom(new BMapGL.Point(116.404, 39.928), 15);
+                                        map.enableScrollWheelZoom(true);
+                                        map.clearOverlays();
+                                        var navi3DCtrl = new BMapGL.NavigationControl3D();
+                                        map.addControl(navi3DCtrl);
+                                        var point = new BMapGL.Point({{ other.location.result.location.lng }}, {{ other.location.result.location.lat }});
+                                        var marker = new BMapGL.Marker(point);
+                                        map.addOverlay(marker);
+                                        map.panTo(point);
+                                    </script>
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            {% if user.location %}
+                                {% if user.location.result.formatted_address %}
+                                    <script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=jOn0GQPIeXI3QsqkAtjztptU4c3AagC0"></script>
+                                    <li class="list-group-item">
+                                        <div id="map" style="width: 100%;height: 200px"></div>
+                                    </li>
+                                    <script>
+                                        var map = new BMapGL.Map('map');
+                                        map.centerAndZoom(new BMapGL.Point(116.404, 39.928), 15);
+                                        map.enableScrollWheelZoom(true);
+                                        map.clearOverlays();
+                                        var navi3DCtrl = new BMapGL.NavigationControl3D();
+                                        map.addControl(navi3DCtrl);
+                                        var point = new BMapGL.Point({{ user.location.result.location.lng }}, {{ user.location.result.location.lat }});
+                                        var marker = new BMapGL.Marker(point);
+                                        map.addOverlay(marker);
+                                        map.panTo(point);
+                                    </script>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="sl_sidebar_sugs_title mt-4">在线的伙伴 {{ online|add:222 }} 人</div>
+                <div class="sl_sidebar_sugs_title mt-1">邀请你的朋友 <i class="icon-feather-rotate-cw"></i>
+                </div>
+                <div class="invite-user-form">
+                    <div class="sl_form_fields invite-user-combine">
+                        <input type="text" name="email" placeholder="请输入朋友的邮箱" id="towho" class="form-control">
+                        <button class="button small" title="发送邀请" onclick="invite()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="footer-wrapper-sidebar mt-4">
+                    <div class="footer-powered"><p>© 2021 4nmb.com</p></div>
+                    <hr>
+                    <ul class="list-inline">
+                        <li><a href="/about/">关于我们</a></li>
+                        <li><a href="mailto:xyuan0071@qq.com">联系我们</a></li>
+                        <li><a href="/privacy/">隐私政策</a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    {% if user and not user.usersage %}
+        <script>
+            $(document).ready(function () {
+                toastr.info("您需要先填写性别和年龄！然后点击更新信息。")
+            })
+        </script>
+    {% endif %}
+    {% include 'common/footer.html' %}
+{% endblock %}

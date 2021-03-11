@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>{% if isreaded %}（新消息）{% endif %}我的积分 - {{ web_config.title }}</title>
+    <meta name="keywords" content="{{ web_config.keywords }}">
+    <meta name="description" content="{{ web_config.description }}">
+{% endblock %}
+{% block content %}
+    <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+            <thead>
+            <tr>
+                <th class="uk-table-shrink">类型</th>
+                <th class="uk-table-expand">时间</th>
+                <th class="uk-width-small">数额</th>
+                <th class="uk-table-shrink uk-text-nowrap">余额</th>
+                <th class="uk-table-shrink uk-text-nowrap">描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for records in objs %}
+                <tr>
+                    <td class="uk-text-nowrap">{{ records.pointtyp }}</td>
+                    <td class="uk-text-nowrap">{{ records.creatime|date:"Y-m-d(D)H:i:d" }}</td>
+                    {% if records.pointnum >= 0 %}
+                        <td class="uk-text-nowrap">+{{ records.pointnum }}</td>
+                    {% else %}
+                        <td class="uk-text-nowrap">{{ records.pointnum }}</td>
+                    {% endif %}
+                    <td class="uk-text-nowrap">{{ records.pointlat }}肥宅币</td>
+                    <td class="uk-text-nowrap">{{ records.pointdes }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% include 'common/pagination.html' %}
+    </div>
+{% endblock %}

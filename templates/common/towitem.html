@@ -1,0 +1,38 @@
+{% load humanize %}
+<h6>
+    {% if comment.cmauthor.niminswh %}
+        Anonymous
+    {% else %}
+        {{ comment.cmauthor.nickname }}
+    {% endif %}
+    {% if comment.parentcomment %}
+        <span class="ml-1">
+                                        <a href="/thread/{{ thread.id }}#comment-id-{{ comment.parentcomment.id }}">
+                                            {% if comment.parentcomment.cmauthor.niminswh %}
+                                                @Anonymous
+                                            {% else %}
+                                                @{{ comment.parentcomment.cmauthor.nickname }}
+                                            {% endif %}
+                                        </a>
+                                    </span>
+    {% endif %}
+</h6>
+<pre>{{ comment.contents }} </pre>
+{% if comment.attachmt %}
+    {% if comment.gifpng %}
+        <div class="fullsizeimg mt-2">
+            <img src="{{ comment.gifpng }}" class="w-100 gifs"/>
+        </div>
+    {% else %}
+        <div class="fullsizeimg mt-2">
+            <div uk-lightbox>
+                <a href="{{ comment.attachmt_source }}">
+                    <img class="lazyload" style="width: 100%"
+                         src="{{ comment.attachmt }}"
+                         data-img="{{ comment.attachmt_source }}"
+                         alt="">
+                </a>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

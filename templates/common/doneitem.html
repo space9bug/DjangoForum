@@ -1,0 +1,296 @@
+{% load humanize %}
+<div class="post-heading">
+    <div class="post-avature">
+        {% if thread.thauthor.niminswh %}
+            <img src="{{ web_config.default }}" alt="">
+        {% else %}
+            <a href="/profile/?u={{ thread.thauthor.nickname }}">
+                {% if thread.thauthor.usravatr %}
+                    <img src="{{ thread.thauthor.usravatr }}" alt="">
+                {% else %}
+                    <img src="{{ web_config.default }}" alt="">
+                {% endif %}
+            </a>
+        {% endif %}
+    </div>
+    <div class="post-title">
+        {% if thread.thauthor.niminswh %}
+            <h4>Anonymous </h4>
+        {% else %}
+            <h4>{{ thread.thauthor.nickname }} </h4>
+        {% endif %}
+        <p>
+            [{{ thread.creatime | naturaltime }}]
+            {% if thread.thauthor.location %}
+                [{{ thread.thauthor.location.result.addressComponent.city }}]
+            {% endif %}
+            {% if thread.thauthor.distance %}
+                [{{ thread.thauthor.distance }}公里]
+            {% endif %}
+            {% if thread.thauthor.usersage %}
+                [{{ thread.thauthor.usersage }}岁]
+            {% endif %}
+            {% if thread.thauthor.urgender %}
+                [{{ thread.thauthor.urgender }}]
+            {% endif %}
+            [Lv{{ thread.thauthor.usrgrade }}]
+        </p>
+    </div>
+    <div class="post-btn-action"><span class="icon-more uil-ellipsis-h"></span>
+        <div class="mt-0 p-2" uk-dropdown="pos: top-right;mode:hover ">
+            <ul class="uk-nav uk-dropdown-nav">
+                <li><a href="#"><i class="uil-link mr-1"></i>查看</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="post-description post-index post-detail">
+    {% if thread.markdown %}
+        <h6 style="font-size: 24px; text-align: center; padding-bottom: 10px; border-bottom: 1px solid gray">
+        {{ thread.title }}</h3>
+        {{ thread.contents|safe }}
+    {% else %}
+        {% if thread.contents != '无标题0071' %}
+            <pre>{{ thread.contents }}</pre>
+        {% endif %}
+        {% if thread.attachmt %}
+            {% if thread.gifpng %}
+                <div class="fullsizeimg mt-2">
+                    <img src="{{ thread.gifpng }}" class="w-100 gifs"/>
+                </div>
+            {% else %}
+                <div class="fullsizeimg mt-2">
+                    <div uk-lightbox>
+                        <a href="{{ thread.attachmt_source }}">
+                            <img class="lazyload" style="width: 100%"
+                                 src="{{ thread.attachmt }}"
+                                 data-img="{{ thread.attachmt_source }}" alt="">
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+        {% if thread.videourl %}
+            {% if thread.mp4video %}
+                <div style="height: 217px; margin-right: -15px; margin-left: -15px"
+                     id="dplayer{{ thread.id }}"
+                     class="dplayer dplayer-no-danmaku"></div>
+                <script>
+                    const dp{{ thread.id }} = new DPlayer({
+                        container: document.getElementById('dplayer{{ thread.id }}'),
+                        video: {
+                            url: '{{ thread.mp4video }}',
+                            {% if thread.imageurl %}
+                                pic: '{{ thread.imageurl }}',
+                            {% else %}
+                                pic: 'https://api.mtyqx.cn/api/random.php?id={{ thread.id }}',
+                            {% endif %}
+                        },
+                    });
+                </script>
+            {% elif thread.m3u8video %}
+                <div style="height: 217px; margin-right: -15px; margin-left: -15px"
+                     id="dplayer{{ thread.id }}"
+                     class="dplayer dplayer-no-danmaku"></div>
+                <script>
+                    const dp{{ thread.id }} = new DPlayer({
+                        container: document.getElementById('dplayer{{ thread.id }}'),
+                        video: {
+                            url: '{{ thread.m3u8video }}',
+                            {% if thread.imageurl %}
+                                pic: '{{ thread.imageurl }}',
+                            {% else %}
+                                pic: 'https://api.mtyqx.cn/api/random.php?id={{ thread.id }}',
+                            {% endif %}
+                            type: 'hls',
+                        },
+                    });
+                </script>
+            {% elif thread.mp3url %}
+                <audio class="w-100" src="{{ thread.mp3url }}" preload="none" controls>
+                    你的浏览器不支持该音乐控件~
+                </audio>
+            {% elif thread.biliblivideo %}
+                <div style="margin-right: -15px; margin-left: -15px">
+                    {% autoescape off %}
+                        {{ thread.biliblivideo }}
+                    {% endautoescape %}
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    <div class="post-state-details mt-1">
+        <div>
+            <img src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/icons/reactions_like.png"
+                 alt="">
+            <img src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/icons/reactions_love.png"
+                 alt="">
+            <p class="likenumb-{{ thread.id }}">{{ thread.likenumb }} </p>
+        </div>
+        <a href="/?type={{ thread.thontype.nickname }}">
+            <button class="uk-button uk-button-default uk-button-small"
+                    style="border-radius: 50px">
+                {{ thread.thontype.typename }}
+            </button>
+        </a>
+        <p>{{ thread.commnumb }} 评论</p>
+    </div>
+</div>
+<div class="post-state">
+    <div class="post-state-btns"
+         data-type="1" data-id="{{ thread.id }}" onclick="good(this)">
+        <i class="uil-thumbs-up"></i>
+        <span><span class="likenumb-{{ thread.id }}">{{ thread.likenumb }}</span>点赞 </span>
+    </div>
+    <div class="post-state-btns">
+        <a href="#"><i class="uil-heart"></i>{{ thread.commnumb }}<span>评论</span></a>
+    </div>
+    <input style="width: 1px;border: 0" id="shareinpt-{{ thread.id }}" type="text"
+           value="https://www.4nmb.com/thread/{{ thread.id }}">
+    <div class="post-state-btns" data-clipboard-action="copy"
+         data-clipboard-target="#shareinpt-{{ thread.id }}"
+         id="sharebtn"><i class="uil-share-alt"></i> <span>分享 </span></div>
+</div>
+<div class="post-comments post-detail">
+    {% for comment in objs %}
+        <div class="post-comments-single" id="comment-id-{{ comment.id }}">
+            <div class="post-comment-avatar">
+                {% if comment.cmauthor.niminswh %}
+                    <img src="{{ web_config.default }}" alt="">
+                {% else %}
+                    <a href="/profile/?u={{ comment.cmauthor.nickname }}">
+                        {% if comment.cmauthor.usravatr %}
+                            <img src="{{ comment.cmauthor.usravatr }}" alt="">
+                        {% else %}
+                            <img src="{{ web_config.default }}" alt="">
+                        {% endif %}
+                    </a>
+                {% endif %}
+            </div>
+            <div class="post-comment-text post-index">
+                {% if comment.cmauthor.backswih and false %}
+                    <div class="post-comment-text-inner"
+                         style="position: relative; padding: 0">
+                        <div style="position: absolute; height: 100%; width: 100%; z-index: 98; background-color: black; border-radius: 6px; opacity: 0.45"></div>
+                        <div style="position: absolute; height: 100%; width: 100%; z-index: 97; background-image: url({{ comment.cmauthor.userback }}); background-position: center center; background-size: cover; border-radius: 6px;"></div>
+                        <div class="post-night">
+                            <div style="position: relative; z-index: 99; padding: 10px">
+                                <h6>
+                                    {% if comment.cmauthor.niminswh %}
+                                        Anonymous
+                                    {% else %}
+                                        {{ comment.cmauthor.nickname }}
+                                    {% endif %}
+                                    {% if comment.parentcomment %}
+                                        <span class="ml-1">
+                                        <a href="/thread/{{ thread.id }}#comment-id-{{ comment.parentcomment.id }}">
+                                            {% if comment.parentcomment.cmauthor.niminswh %}
+                                                @Anonymous
+                                            {% else %}
+                                                @{{ comment.parentcomment.cmauthor.nickname }}
+                                            {% endif %}
+                                        </a>
+                                    </span>
+                                    {% endif %}
+                                </h6>
+                                <pre>{{ comment.contents }} </pre>
+                                {% if comment.attachmt %}
+                                    {% if comment.gifpng %}
+                                        <div class="fullsizeimg mt-2">
+                                            <img src="{{ comment.gifpng }}"
+                                                 class="w-100 gifs"/>
+                                        </div>
+                                    {% else %}
+                                        <div class="fullsizeimg mt-2">
+                                            <div uk-lightbox>
+                                                <a href="{{ comment.attachmt_source }}">
+                                                    <img class="lazyload"
+                                                         style="width: 100%"
+                                                         src="{{ comment.attachmt }}"
+                                                         data-img="{{ comment.attachmt_source }}"
+                                                         alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="post-comment-text-inner"
+                         style="position: relative;">
+                        <div style="position: relative; z-index: 99">
+                            <h6>
+                                {% if comment.cmauthor.niminswh %}
+                                    Anonymous
+                                {% else %}
+                                    {{ comment.cmauthor.nickname }}
+                                {% endif %}
+                                {% if comment.parentcomment %}
+                                    <span class="ml-1">
+                                        <a href="/thread/{{ thread.id }}#comment-id-{{ comment.parentcomment.id }}">
+                                            {% if comment.parentcomment.cmauthor.niminswh %}
+                                                @Anonymous
+                                            {% else %}
+                                                @{{ comment.parentcomment.cmauthor.nickname }}
+                                            {% endif %}
+                                        </a>
+                                    </span>
+                                {% endif %}
+                            </h6>
+                            <pre>{{ comment.contents }} </pre>
+                            {% if comment.attachmt %}
+                                {% if comment.gifpng %}
+                                    <div class="fullsizeimg mt-2">
+                                        <img src="{{ comment.gifpng }}" class="w-100 gifs"/>
+                                    </div>
+                                {% else %}
+                                    <div class="fullsizeimg mt-2">
+                                        <div uk-lightbox>
+                                            <a href="{{ comment.attachmt_source }}">
+                                                <img class="lazyload" style="width: 100%"
+                                                     src="{{ comment.attachmt }}"
+                                                     data-img="{{ comment.attachmt_source }}"
+                                                     alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="uk-text-small">
+                    <a href="javascript:void(0);" class="text-danger mr-1" data-type="0"
+                       data-id="{{ comment.id }}" onclick="good(this)">
+                        <i class="uil-heart"></i>
+                        <span class="likenumb">{{ comment.likenumb }}</span>喜欢 </a>
+
+                    {% if user and user.nickname != comment.cmauthor.nickname %}
+                        <a href="#" data-commid="{{ comment.id }}"
+                           data-author="{% if comment.niminswh %}Anonymous{% else %}{{ comment.cmauthor.nickname }}{% endif %}"
+                           onclick="reply(this)" class="mr-1">回复 </a>
+                    {% endif %}
+                    [<span>{{ comment.commfoor }}楼</span>]
+                    [{{ comment.creatime | naturaltime }}]
+                    {% if comment.cmauthor.location %}
+                        [{{ comment.cmauthor.location.result.addressComponent.city }}]
+                    {% endif %}
+                    {% if comment.cmauthor.distance %}
+                        [{{ comment.cmauthor.distance }}公里]
+                    {% endif %}
+                    {% if comment.cmauthor.usersage %}
+                        [{{ comment.cmauthor.usersage }}岁]
+                    {% endif %}
+                    {% if comment.cmauthor.urgender %}
+                        [{{ comment.cmauthor.urgender }}]
+                    {% endif %}
+                    [Lv{{ comment.cmauthor.usrgrade }}]
+                </div>
+            </div>
+            <a href="/thread/{{ thread.id }}#comment-id-{{ comment.id }}"
+               class="post-comment-opt"></a>
+        </div>
+    {% endfor %}
+</div>

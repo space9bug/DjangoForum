@@ -1,0 +1,424 @@
+{% extends 'base.html' %}
+{% block seo %}
+    {% if currentype %}
+        <title>{% if isreaded %}（新消息）{% endif %}{{ currentype.typename }}板块 - {{ web_config.title }}</title>
+    {% else %}
+        <title>{% if isreaded %}（新消息）{% endif %}{{ web_config.title }} - {{ web_config.subtitle }}</title>
+    {% endif %}
+    <meta name="keywords" content="{{ web_config.keywords }}">
+    <meta name="description" content="{{ web_config.description }}">
+{% endblock %}
+{% block header %}
+    {% include 'common/header.html' %}
+{% endblock %}
+{% block content %}
+    <div uk-grid>
+        <div class="uk-width-2-3@m fead-area">
+            <div class="uk-position-relative" uk-slider="finite: true">
+                <div class="uk-slider-container pb-3">
+                    <ul class="uk-slider-items uk-child-width-1-5@m uk-child-width-1-3@s uk-child-width-1-3 story-slider uk-grid">
+                        {% for top in tops %}
+                            <li><a href="/profile/?u={{ top.nickname }}" uk-toggle="target: body ; cls: is-open">
+                                <div class="story-card"
+                                     data-src="
+
+                                             
+                                             
+                                             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                             {% if top.usravatr %}{{ top.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                                     uk-img>
+                                    <i class="uil-plus"></i>
+                                    <div class="story-card-content"><h4>{{ top.nickname }} </h4></div>
+                                </div>
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                    <div class="uk-visible@m">
+                        <a class="uk-position-center-left-out slidenav-prev" href="#"
+                           uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right-out slidenav-next" href="#"
+                           uk-slider-item="next"></a>
+                    </div>
+                    <div class="uk-hidden@m">
+                        <a class="uk-position-center-left slidenav-prev" href="#" uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right slidenav-next" href="#" uk-slider-item="next"></a>
+                    </div>
+                </div>
+            </div>
+            {% if user %}
+                <div class="post-newer mt-lg-2">
+                    <div class="post-new" uk-toggle="target: body ; cls: post-focus">
+                        <div class="post-new-media">
+                            <div class="post-new-media-user">
+                                {% if user and user.usravatr %}
+                                    <img src="{{ user.usravatr }}" alt="">
+                                {% else %}
+                                    <img src="{{ web_config.default }}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="post-new-media-input">
+                                <input type="text" class="uk-input" placeholder="有什么有趣的事情嘛！">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="post-new-type">
+                            <a href="#">
+                                <img src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/icons/live.png"
+                                     alt="">视频 </a>
+                            <a href="#">
+                                <img src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/icons/photo.png"
+                                     alt="">图片 </a>
+                            <a href="#" class="uk-visible@s">
+                                <img src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/icons/tag-friend.png"
+                                     alt="">标签 </a>
+                            <a href="#">
+                                <img src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/icons/reactions_wow.png"
+                                     alt="">表情 </a>
+                        </div>
+                    </div>
+                    <div class="post-pop">
+                        <div class="post-new-overyly" uk-toggle="target: body ; cls: post-focus"></div>
+                        <div class="post-new uk-animation-slide-top-small">
+                            {% csrf_token %}
+                            <div class="post-new-header">
+                                <h4>发表主题！</h4>
+                                <span class="post-new-btn-close" uk-toggle="target: body ; cls: post-focus"
+                                      uk-tooltip="title:Close; pos: left "></span>
+                            </div>
+                            <div class="post-new-media mb-0">
+                                <div class="post-new-media-user">
+                                    {% if user and user.usravatr %}
+                                        <img src="{{ user.usravatr }}" alt="">
+                                    {% else %}
+                                        <img src="{{ web_config.default }}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="post-new-media-input">
+                                <textarea class="OwO-textarea uk-textarea ml-2" style="margin-bottom: 0"
+                                          placeholder="有什么有趣的事情嘛！"></textarea>
+                                </div>
+                            </div>
+                            <div class="post-new-tab-nav">
+                                <a href="javascript:void(0);">
+                                    <div uk-form-custom="" class="uk-form-custom">
+                                        <input type="file" id="uploadFile" accept="image/gif,image/jpeg,image/png">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24">
+                                            <path fill="#4db3f6"
+                                                  d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z"></path>
+                                        </svg>
+                                        <span style="margin-left: -6px" id="uploadFileName">上传图片</span>
+                                    </div>
+                                </a>
+                                <a href="javascript:void(0);" id="uploadMp3">
+                                    <svg t="1608392230193" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                         xmlns="http://www.w3.org/2000/svg" p-id="7673" width="24" height="24">
+                                        <path d="M864 157.333333V725.333333a117.333333 117.333333 0 1 1-64-104.533333V376l-469.333333 37.546667V768a117.333333 117.333333 0 0 1-112.618667 117.248L213.333333 885.333333a117.333333 117.333333 0 1 1 53.333334-221.866666V205.12l597.333333-47.786667zM213.333333 714.666667a53.333333 53.333333 0 1 0 0 106.666666 53.333333 53.333333 0 0 0 0-106.666666z m533.333334-42.666667a53.333333 53.333333 0 1 0 0 106.666667 53.333333 53.333333 0 0 0 0-106.666667z m53.333333-445.333333l-469.333333 37.546666v85.12l469.333333-37.546666v-85.12z"
+                                              fill="#d4237a" p-id="7674"></path>
+                                    </svg>
+                                    <span>音乐外链</span>
+                                </a>
+                                <a href="javascript:void(0);" id="uploadBiliBili">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path fill="#31a38c"
+                                              d="M17,17H15V13H17M13,17H11V7H13M9,17H7V10H9M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z"></path>
+                                    </svg>
+                                    <span>B站分享</span>
+                                </a>
+                                <a href="javascript:void(0);">
+                                    <div uk-form-custom="" class="uk-form-custom">
+                                        <input type="file" id="uploadVideoReal" accept="video/mp4,audio/mp4">
+                                        <svg t="1608392485806" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                             xmlns="http://www.w3.org/2000/svg" p-id="10916" width="24" height="24">
+                                            <path d="M746.666667 85.333333c117.824 0 213.333333 95.509333 213.333333 213.333334v277.333333c0 117.824-95.509333 213.333333-213.333333 213.333333H277.333333C159.509333 789.333333 64 693.824 64 576V298.666667C64 180.842667 159.509333 85.333333 277.333333 85.333333h469.333334z m0 64H277.333333a149.333333 149.333333 0 0 0-149.333333 149.333334v277.333333a149.333333 149.333333 0 0 0 149.333333 149.333333h469.333334a149.333333 149.333333 0 0 0 149.333333-149.333333V298.666667a149.333333 149.333333 0 0 0-149.333333-149.333334z"
+                                                  fill="#13227a" p-id="10917"></path>
+                                            <path d="M469.333333 266.282667a106.666667 106.666667 0 0 1 53.76 14.528l128.64 75.050666a106.666667 106.666667 0 0 1 0 184.277334l-128.64 75.050666a106.666667 106.666667 0 0 1-160.426666-92.16v-150.08a106.666667 106.666667 0 0 1 106.666666-106.666666z m0 64a42.666667 42.666667 0 0 0-42.666666 42.666666v150.101334a42.666667 42.666667 0 0 0 64.170666 36.842666l128.64-75.029333a42.666667 42.666667 0 0 0 0-73.728l-128.64-75.029333A42.666667 42.666667 0 0 0 469.333333 330.282667zM256 928h490.666667a32 32 0 0 0 0-64H256a32 32 0 0 0 0 64z"
+                                                  fill="#13227a" p-id="10918"></path>
+                                        </svg>
+                                        <span style="margin-left: -6px" id="uploadVideoName">视频上传</span>
+                                    </div>
+                                </a>
+                                <a href="javascript:void(0);" id="uploadVideo">
+                                    <svg t="1608392713703" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                         xmlns="http://www.w3.org/2000/svg" p-id="17708" width="24" height="24">
+                                        <path d="M912 302.3L784 376V224c0-35.3-28.7-64-64-64H128c-35.3 0-64 28.7-64 64v576c0 35.3 28.7 64 64 64h592c35.3 0 64-28.7 64-64V648l128 73.7c21.3 12.3 48-3.1 48-27.6V330c0-24.6-26.7-40-48-27.7zM712 792H136V232h576v560z m176-167l-104-59.8V458.9L888 399v226z"
+                                              p-id="17709" fill="#60A35B"></path>
+                                        <path d="M208 360h112c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H208c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z"
+                                              p-id="17710" fill="#60A35B"></path>
+                                    </svg>
+                                    <span>视频外链</span>
+                                </a>
+                                <a href="javascript:void(0);" id="insertMarkdown">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 512 512">
+                                        <path fill="#6bcfef"
+                                              d="M312 155h91c2.8 0 5-2.2 5-5 0-8.9-3.9-17.3-10.7-22.9L321 63.5c-5.8-4.8-13-7.4-20.6-7.4-4.1 0-7.4 3.3-7.4 7.4V136c0 10.5 8.5 19 19 19z"></path>
+                                        <path fill="#6bcfef"
+                                              d="M267 136V56H136c-17.6 0-32 14.4-32 32v336c0 17.6 14.4 32 32 32h240c17.6 0 32-14.4 32-32V181h-96c-24.8 0-45-20.2-45-45z"></path>
+                                    </svg>
+                                    <span>Markdown</span>
+                                </a>
+                            </div>
+                            <div class="uk-flex uk-flex-between">
+                                <select class="uk-select w-20" id="category">
+                                    {% for category in categorys %}
+                                        {% if currentype %}
+                                            {% if currentype.typename == category.typename %}
+                                                <option value="{{ category.nickname }}"
+                                                        selected>{{ category.typename }}</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="{{ category.nickname }}">{{ category.typename }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <a href="javascript:void(0);" onclick="publish()" id="publish-submit"
+                                   class="button primary px-6">发送！
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% for thread in objs %}
+                {% include 'index/thread.html' %}
+            {% endfor %}
+            {% include 'common/pagination.html' %}
+        </div>
+        {% include 'common/expand.html' %}
+    </div>
+{% endblock %}
+{% block footer %}
+    {% if user and not user.usersage %}
+        <script>
+            $(document).ready(function () {
+                window.location.href = "/profile/"
+            })
+        </script>
+    {% endif %}
+    {% include 'common/footer.html' %}
+{% endblock %}

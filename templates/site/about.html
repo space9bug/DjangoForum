@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>{% if isreaded %}（新消息）{% endif %}关于社区 - {{ web_config.title }}</title>
+    <meta name="keywords" content="{{ web_config.keywords }}">
+    <meta name="description" content="{{ web_config.description }}">
+{% endblock %}
+{% block content %}
+    <article class="uk-article">
+        关于界面
+    </article>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% load humanize %}
+{% if thread.markdown %}
+    <a href="/thread/{{ thread.id }}" class="blog-post">
+        <div class="blog-post-thumbnail">
+            <div class="blog-post-thumbnail-inner">
+                {% if thread.attachmt %}
+                    <img class="lazyload" src="{{ thread.attachmt }}"
+                         data-img="{{ thread.attachmt_source }}" alt="">
+                {% else %}
+                    <img class="lazyload" style="width: 100%"
+                         src="https://cdn.jsdelivr.net/gh/xyuansec/4nmb_com@master/static/images/loading.jpg"
+                         data-img="{{ web_config.img_api }}?r={{ thread.id }}" alt="">
+                {% endif %}
+            </div>
+        </div>
+        <div class="blog-post-content">
+            <div class="blog-post-content-info">
+                <span class="blog-post-info-tag button soft-danger">
+                    {{ thread.thontype.typename }}
+                </span>
+                <span class="blog-post-info-date">posted {{ thread.creatime | naturaltime }}
+                    {% if thread.thauthor.niminswh %}
+                        Anonymous
+                    {% else %}
+                        {{ thread.thauthor.nickname }}
+                    {% endif %}
+                </span>
+            </div>
+            <h3>{{ thread.title }} </h3>
+            <p style="overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; display: -webkit-box; word-wrap: break-word; text-overflow: ellipsis">
+                {{ thread.contents|slice:"80" }}
+            </p>
+        </div>
+    </a>
+{% else %}
+    <div class="post" style="position: relative">
+        {% if thread.thauthor.backswih and thread.thauthor.userback and not thread.attachmt %}
+            <div class="post-night">
+                <div style="position: absolute; height: 100%; width: 100%; z-index: 98; background-color: black; border-radius: 6px; opacity: 0.45"></div>
+                <div style="position: absolute; height: 100%; width: 100%; z-index: 97; background-image: url({{ thread.thauthor.userback }}); background-position: center center; background-size: cover; border-radius: 6px;"></div>
+                <div style="position: relative; z-index: 99">
+                    {% include 'common/oneitem.html' %}
+                </div>
+            </div>
+        {% else %}
+            <div style="position: relative; z-index: 99">
+                {% include 'common/oneitem.html' %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

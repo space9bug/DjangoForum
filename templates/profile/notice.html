@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>{% if isreaded %}（新消息）{% endif %}消息通知 - {{ web_config.title }}</title>
+    <meta name="keywords" content="{{ web_config.keywords }}">
+    <meta name="description" content="{{ web_config.description }}">
+{% endblock %}
+{% block content %}
+    <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+            <thead>
+            <tr>
+                <th class="uk-table-shrink">用户</th>
+                <th class="uk-table-expand">回复内容</th>
+                <th class="uk-width-small">时间</th>
+                <th class="uk-table-shrink uk-text-nowrap">是否已读</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for notice in objs %}
+                <tr>
+                    <td>
+                        <a href="/profile/?u={{ notice.replyhes.nickname }}">
+                            <img class="uk-preserve-width uk-border-circle" src="
+                                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    {% if notice.replyhes.usravatr %}{{ notice.replyhes.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                                 width="40"
+                                 alt="">
+                        </a>
+                    </td>
+                    <td class="uk-table-link">
+                        <a class="uk-link-reset"
+                           href="/thread/{{ notice.replythd.id }}">{{ notice.replycom.contents }}</a>
+                    </td>
+                    <td class="uk-text-truncate">
+                        {{ notice.replycom.creatime |date:"Y-m-d(D)H:i:s" }}
+                    </td>
+                    <td class="uk-text-nowrap">
+                        {% if notice.isreaded %}已读{% else %}<b>未读</b>{% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% include 'common/pagination.html' %}
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>{% if isreaded %}（新消息）{% endif %}小工具 - {{ web_config.title }}</title>
+    <meta name="keywords" content="在线工具,肥宅工具">
+    <meta name="description" content="提供关于二次元动漫相关的在线工具,由市肥宅中心出品">
+{% endblock %}
+{% block content %}
+    <article class="uk-article">
+        <h3>小工具 </h3>
+        <div class="uk-child-width-1-4m uk-child-width-1-2@s uk-child-width-1-2 uk-grid-small uk-grid" uk-grid="">
+            <div class="uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center" style="text-transform:none">
+                        更多功能等待开发中 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">未开发</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}

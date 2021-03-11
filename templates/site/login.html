@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录账号 - {{ web_config.title }}</title>
+    <meta name="keywords" content="{{ web_config.keywords }}">
+    <meta name="description" content="{{ web_config.description }}">
+    <link rel="icon" href="/static/images/web-icon.jpg">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/uikit.css">
+    <link rel="stylesheet" href="/static/css/icons.css">
+    <link rel="stylesheet" href="/static/css/fonts.css">
+    <script src="/static/js/awesome.js"></script>
+</head>
+<body class="bg-white">
+<div uk-height-viewport class="uk-flex uk-flex-middle">
+    <div class="uk-width-2-3@m uk-width-1-2@s m-auto rounded uk-overflow-hidden shadow-lg">
+        <div class="uk-child-width-1-2@m uk-grid-collapse bg-gradient-primary" uk-grid>
+            <div class="uk-margin-auto-vertical uk-text-center uk-animation-scale-up p-3 uk-light">
+                <a href="/"><img width="80"
+                                 src="/static/images/web-icon.jpg"
+                                 alt=""></a>
+                <h3 class="mb-3 mt-lg-4">{{ web_config.title }}</h3>
+                <p>与您的朋友分享新鲜事物和生活瞬间。</p>
+            </div>
+            <div class="uk-card-default px-5 py-8">
+                <div class="mb-4 uk-text-center">
+                    <h2 class="mb-0"> 欢迎来到{{ web_config.title }}</h2>
+                    <p class="my-2">登录账号.</p>
+                </div>
+                {% if error %}
+                    <div class="uk-alert-danger" uk-alert>
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>{{ error }}</p>
+                    </div>
+                {% endif %}
+                <form action="/login/" method="POST">
+                    {% csrf_token %}
+                    <div class="uk-form-group">
+                        <label class="uk-form-label"> 邮箱</label>
+                        <div class="uk-position-relative w-100">
+                            <span class="uk-form-icon">
+                                <i class="icon-feather-mail"></i>
+                            </span>
+                            <input name="email" class="uk-input" type="email" placeholder="name@example.com" required>
+                        </div>
+                    </div>
+                    <div class="uk-form-group">
+                        <label class="uk-form-label"> 密码</label>
+                        <div class="uk-position-relative w-100">
+                            <span class="uk-form-icon">
+                                    <i class="icon-feather-lock"></i>
+                                </span>
+                            <input name="password" class="uk-input" type="password" placeholder="输入6~15个字符" required>
+                        </div>
+                    </div>
+                    <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
+                        <div class="uk-width-expand@s">
+                            <p> 还没有账号？ <a href="/register">点击注册</a></p></div>
+                        <div class="uk-width-auto@s">
+                            <button type="submit" class="button primary">开启！</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/js/uikit.js"></script>
+<script src="/static/js/simplebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>{% if isreaded %}（新消息）{% endif %}财富排行 - {{ web_config.title }}</title>
+    <meta name="keywords" content="{{ web_config.keywords }}">
+    <meta name="description" content="{{ web_config.description }}">
+{% endblock %}
+{% block content %}
+    <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+            <thead>
+            <tr>
+                <th class="uk-table-shrink">排名</th>
+                <th class="uk-table-expand">用户</th>
+                <th class="uk-width-small">财富</th>
+                <th class="uk-table-shrink uk-text-nowrap">等级</th>
+                <th class="uk-table-shrink uk-text-nowrap">主页</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for rank in objs %}
+                <tr>
+                    <td class="uk-text-nowrap">{{ forloop.counter }}</td>
+                    <td class="uk-text-nowrap">
+                        <a href="/profile/?u={{ rank.nickname }}">
+                            <img class="uk-preserve-width uk-border-circle" src="
+                                {% if rank.usravatr %}{{ rank.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                                 width="40"
+                                 alt="">
+                        </a>
+                    </td>
+                    <td class="uk-text-nowrap">
+                        <span style="color: brown;">
+                            <i class="fa fa-jpy" aria-hidden="true"></i> {{ rank.pointnum }}肥宅币
+                        </span>
+                    </td>
+                    <td class="uk-text-nowrap">Lv{{ rank.usrgrade }}</td>
+                    <td class="uk-text-nowrap">
+                        <button onclick="javascript:window.location.href='/profile/?u={{ rank.nickname }}'"
+                                type="button" class="button small"><span>主页</span>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

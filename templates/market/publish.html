@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>{% if isreaded %}（新消息）{% endif %}发布商品 - 商品市场 - {{ web_config.title }}</title>
+    <meta name="keywords" content="商品市场,商品交易,虚拟商品">
+    <meta name="description" content="市肥宅中心商品市场交易中心">
+{% endblock %}
+{% block content %}
+    <div class="section-header">
+        <div class="section-header-left">
+            <h3>
+                <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">发布商品 </font>
+                </font>
+            </h3>
+        </div>
+    </div>
+    <form class="uk-form-stacked" action="/pbmarket/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if error %}
+            <div class="uk-alert-danger" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">商品标题</label>
+            <div class="uk-form-controls">
+                <input class="uk-input" id="form-stacked-text" name="mktitle" type="text"
+                       placeholder="请输入尽量简短的商品标题" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-select">商品分类</label>
+            <div class="uk-form-controls">
+                <select class="uk-select" id="form-stacked-select" name="mkcatgr">
+                    {% for item in mtypes %}
+                        <option value="{{ item.nickname }}">{{ item.typename }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">商品价格</label>
+            <div class="uk-form-controls">
+                <input class="uk-input" id="form-stacked-text" name="mkprice" type="number"
+                       placeholder="请输入商品价格(在1-999内)" min="0" max="999" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">商品库存</label>
+            <div class="uk-form-controls">
+                <input class="uk-input" id="form-stacked-text" name="mkstock" type="number"
+                       placeholder="请输入商品库存(在1-999内)" min="0" max="999" required>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">选择封面</label>
+            <input type="file" name="mkphoto" accept="image/jpeg,image/png">
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">商品描述</label>
+            <textarea class="uk-textarea" name="mkdescp" rows="5" placeholder="请输入尽量详细的商品描述（支持markdown）"></textarea>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">隐藏内容</label>
+            <textarea class="uk-textarea" name="mkhiden" rows="5" placeholder="此处填写下载链接或者其他内容"></textarea>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">联系方式</label>
+            <div class="uk-form-controls">
+                <input class="uk-input" name="mkconct" id="form-stacked-text" type="text" placeholder="请输入您的QQ号码或者邮箱地址"
+                       required>
+            </div>
+        </div>
+        {% if user %}
+            <button class="uk-button uk-button-primary" type="submit">发布商品</button>
+        {% else %}
+            <button class="uk-button uk-button-primary" type="submit" disabled>未登录</button>
+        {% endif %}
+    </form>
+{% endblock %}

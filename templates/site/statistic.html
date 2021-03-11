@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>{% if isreaded %}（新消息）{% endif %}数据统计 - {{ web_config.title }}</title>
+    <meta name="keywords" content="{{ web_config.keywords }}">
+    <meta name="description" content="{{ web_config.description }}">
+{% endblock %}
+{% block content %}
+    <article class="uk-article">
+        <h3>基础数据 </h3>
+        <div class="uk-child-width-1-4m uk-child-width-1-2@s uk-child-width-1-2 uk-grid-small uk-grid" uk-grid="">
+            <div class="uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">注册成员 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">{{ register_count }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">话题数量 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">{{ category_count }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">帖子数量 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">{{ thread_count }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">评论数量 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">{{ comment_count }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">点赞数量 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">{{ good_count }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">当前在线 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">{{ online|add:222 }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">最高在线 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">735</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 class="uk-grid-margin">日志数据（模拟） </h3>
+        <div class="uk-child-width-1-4m uk-child-width-1-2@s uk-child-width-1-2 uk-grid-small uk-grid" uk-grid="">
+            <div class="uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">百度爬虫 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">谷歌爬虫 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">搜狗爬虫 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">360爬虫 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">神马爬虫 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin uk-first-column">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">头条爬虫 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid-margin">
+                <div class="sl_game_list">
+                    <div class="sl_game_list_info"><h3 class="text-center">其他爬虫 </h3>
+                        <div class="sl_game_list_info_btns">
+                            <div class="btn button light block small">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}

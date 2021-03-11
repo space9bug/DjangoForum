@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block seo %}
+        <title>{% if isreaded %}（新消息）{% endif %}{{ web_config.title }} - {{ web_config.subtitle }}</title>
+        <meta name="keywords" content="{{ web_config.keywords }}">
+        <meta name="description" content="{{ web_config.description }}">
+    {% endblock %}
+    <link rel="icon" href="/static/images/web-icon.jpg">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/uikit.css">
+    <link rel="stylesheet" href="/static/css/icons.css">
+    <link rel="stylesheet" href="/static/css/fonts.css">
+    <link rel="stylesheet" href="/static/css/toastr.min.css">
+    <script src="/static/js/awesome.js"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/clipboard.min.js"></script>
+    <script src="/static/js/lazyload.js"></script>
+    {% block header %}
+    {% endblock %}
+</head>
+<body>
+<div id="wrapper">
+    <div class="main_sidebar">
+        <div class="side-overlay" uk-toggle="target: #wrapper; cls: collapse-sidebar mobile-visible"></div>
+        <div class="sidebar-header">
+            <div id="logo"><a href="/"><img src="{{ web_config.logo_light }}" alt=""></a></div>
+            <span class="btn-close" uk-toggle="target: #wrapper ; cls: collapse-sidebar mobile-visible"></span>
+        </div>
+        <div class="sidebar">
+            {% include 'common/sidebar.html' %}
+        </div>
+    </div>
+    <div class="main_content">
+        <div id="main_header">
+            <header>
+                <div class="header-innr">
+                    <div class="header-btn-traiger is-hidden"
+                         uk-toggle="target: #wrapper ; cls: collapse-sidebar mobile-visible">
+                        <span></span>
+                    </div>
+                    <div id="logo">
+                        <a href="/"><img src="{{ web_config.logo }}" alt=""></a>
+                        <a href="/"><img src="{{ web_config.logo }}" class="logo-inverse" alt=""></a>
+                    </div>
+                    <div class="head_search">
+                        <form action="/search/" method="POST">
+                            {% csrf_token %}
+                            <div class="head_search_cont" aria-expanded="false">
+                                <input value="" type="text" name="keyword" class="form-control"
+                                       placeholder="通过关键字搜索动态" autocomplete="off" required>
+                                <i class="s_icon uil-search-alt"></i>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="head_user">
+                        {% if user %}
+                            <a href="/notifications/" class="opts_icon" uk-tooltip="title: 通知消息; pos: bottom ;offset:7">
+                                <img src="/static/images/icons/bell.svg"
+                                     alt="">{% if isreaded %}
+                                <span></span>{% endif %}
+                            </a>
+                            <a class="opts_account" href="#">
+                                {% if user and user.usravatr %}
+                                    <img src="{{ user.usravatr }}"
+                                         alt="">
+                                {% else %}
+                                    <img src="{{ web_config.default }}"
+                                         alt="">
+                                {% endif %}
+                            </a>
+                            <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small"
+                                 class="dropdown-notifications rounded display-hidden">
+                                <a href="/profile/">
+                                    <div class="dropdown-user-details">
+                                        <div class="dropdown-user-cover">
+                                            {% if not user.userback %}
+                                                <img src="/static/images/profile-cover.jpg"
+                                                     alt="">
+                                            {% else %}
+                                                <img src="{{ user.userback }}"
+                                                     alt="">
+                                            {% endif %}
+                                        </div>
+                                        <div class="dropdown-user-avatar">
+                                            {% if user and user.usravatr %}
+                                                <img src="{{ user.usravatr }}"
+                                                     alt="">
+                                            {% else %}
+                                                <img src="{{ web_config.default }}"
+                                                     alt="">
+                                            {% endif %}
+                                        </div>
+                                        <div class="dropdown-user-name">{{ user.nickname }}</div>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-user-menu">
+                                    <li><a href="/profile/"><i class="fas fa-user-edit"></i>设置</a></li>
+                                    <li><a href="/mypoint/"><i class="fa fa-jpy"></i>积分</a></li>
+                                    <li>
+                                        <a data-recvflag="{% if user.recvmail %}0{% else %}1{% endif %}"
+                                           href="javascript:void(0);" onclick="setrecvemail(this)" id="night-mode"
+                                           class="btn-night-mode">
+                                            <i class="fas fa-bullhorn"></i>邮件通知
+                                            <span class="btn-night-mode-switch">
+                                                <span class="uk-switch-button {% if user.recvmail %}on{% endif %}">
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-niminflag="{% if user.niminswh %}0{% else %}1{% endif %}"
+                                           href="javascript:void(0);" onclick="setniminswh(this)" id="night-mode"
+                                           class="btn-night-mode">
+                                            <i class="fas fa-eye"></i>完全匿名（暂不可用）
+                                            <span class="btn-night-mode-switch">
+                                                <span class="uk-switch-button {% if user.niminswh %}on{% endif %}">
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-backflag="{% if user.backswih %}0{% else %}1{% endif %}"
+                                           href="javascript:void(0);" onclick="setbackswih(this)" id="night-mode"
+                                           class="btn-night-mode">
+                                            <i class="fas fa-user-cog"></i>动态背景
+                                            <span class="btn-night-mode-switch">
+                                                <span class="uk-switch-button {% if user.backswih %}on{% endif %}">
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-localflag="{% if user.location %}0{% else %}1{% endif %}"
+                                           href="javascript:void(0);" onclick="setlocation(this)" id="night-mode"
+                                           class="btn-night-mode">
+                                            <i class="fas fa-globe"></i>地理位置
+                                            <span class="btn-night-mode-switch">
+                                                <span class="uk-switch-button {% if user.location %}on{% endif %}">
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li><a href="/logout/"><i class="fas fa-sign-out-alt"></i>退出</a></li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <a class="opts_account" href="#">
+                                <img src="{{ web_config.default }}"
+                                     alt="">
+                            </a>
+                            <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small"
+                                 class="dropdown-notifications rounded display-hidden">
+                                <a href="#">
+                                    <div class="dropdown-user-details">
+                                        <div class="dropdown-user-cover">
+                                            <img src="/static/images/profile-cover.jpg"
+                                                 alt="">
+                                        </div>
+                                        <div class="dropdown-user-avatar">
+                                            <img src="{{ web_config.default }}"
+                                                 alt="">
+                                        </div>
+                                        <div class="dropdown-user-name">未登录</div>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-user-menu">
+                                    <li><a href="/login"><i class="fas fa-user"></i>登录</a></li>
+                                    <li><a href="/register"><i class="fas fa-user"></i>注册</a></li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="main_content_inner">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+<div id="backtotop"><a href="#"></a></div>
+<script src="/static/js/toastr.min.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/uikit.js"></script>
+<script src="/static/js/simplebar.js"></script>
+{% block footer %}
+{% endblock %}
+</body>
+</html>

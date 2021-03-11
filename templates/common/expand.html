@@ -1,0 +1,1971 @@
+<div class="uk-width-expand" style="overflow: hidden;">
+    <div id="container-1">
+        <div class="sl_sidebar_sugs_title border-0">公告板<i class="icon-feather-rotate-cw"></i></div>
+        <div class="sl_sidebar_sugs">
+            <div class="sl_sidebar_sugs_text">
+                <p class="sl_user_link_name"
+                   style="font-size: 15px; margin: 0; max-width: 100%; text-transform: capitalize; font-weight: 600; text-decoration: none">
+                    这里是公告板
+                </p>
+            </div>
+        </div>
+        {% if user %}
+            <div class="sl_sidebar_sugs">
+                {% if not issign %}
+                    <button onclick="signpoint()"
+                            class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom mt-2">
+                        每日签到！
+                    </button>
+                {% else %}
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom mt-2">
+                        今日已签到！
+                    </button>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div uk-sticky="top: #container-1; bottom: #animation">
+            <div class="sl_sidebar_sugs_title border-0">广告!<i class="icon-feather-rotate-cw"></i></div>
+            <div class="sl_sidebar_sugs">
+                广告区域
+            </div>
+        </div>
+        <div class="sl_sidebar_sugs_title border-0">趋势!<i class="icon-feather-rotate-cw"></i></div>
+        {% for category in categorys %}
+            <div class="list-group-item sl_htag"><a href="/?type={{ category.nickname }}"><span
+                    class="htag_top">#{{ category.typename }}</span></a></div>
+        {% endfor %}
+        <div class="sl_sidebar_sugs_title mt-4">最佳会员 <i class="icon-feather-rotate-cw"></i></div>
+        <div class="uk-position-relative" uk-slider="finite: true; autoplay:true">
+            <div class="uk-slider-container pb-3">
+                <ul class="uk-slider-items uk-child-width-1-3@m uk-grid-small uk-grid sl_pro_users">
+                    {% for top in bests %}
+                        <li>
+                            <a class="user" href="/profile/?u={{ top.nickname }}">
+                                <img src="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        
+                                        
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        {% if top.usravatr %}{{ top.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                                     alt="">
+                                <span>{{ top.nickname }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a class="uk-position-center-left uk-hidden-hover slidenav-prev sl_pro_users_prev" href="#"
+                   uk-slider-item="previous"></a>
+                <a class="uk-position-center-right-out uk-position-small uk-hidden-hover slidenav-next sl_pro_users_next"
+                   href="#" uk-slider-item="next"></a></div>
+        </div>
+        <div class="sl_sidebar_sugs_title">新加入的伙伴 <i class="icon-feather-rotate-cw"></i></div>
+        {% for top in creates %}
+            <div class="sl_sidebar_sugs">
+                <div class="sl_sidebar_sugs_avatar">
+                    <a href="/profile/?u={{ top.nickname }}"><img
+                            src="{% if top.usravatr %}{{ top.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                            alt=""></a>
+                </div>
+                <div class="sl_sidebar_sugs_text">
+                    <a href="/profile/?u={{ top.nickname }}" class="sl_user_link_name">{{ top.nickname }} </a>
+                </div>
+                <div class="user-follow-button sl_sidebar_sugs_btns">
+                    <button onclick="javascript:window.location.href='/profile/?u={{ top.nickname }}'" type="button"
+                            class="button small"><span>主页</span></button>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="sl_sidebar_sugs_title mt-4">签到墙 <i class="icon-feather-rotate-cw"></i>
+        </div>
+        {% for top in signtops %}
+            <div class="sl_sidebar_sugs">
+                <div class="sl_sidebar_sugs_avatar">
+                    <a href="/profile/?u={{ top.pointusr.nickname }}"><img src="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+                            
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            {% if top.pointusr.usravatr %}{{ top.pointusr.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                                                                           alt=""></a></div>
+                <div class="sl_sidebar_sugs_text">
+                    <a href="/profile/?u={{ top.pointusr.nickname }}"
+                       class="sl_user_link_name">{{ top.pointusr.nickname }} </a>
+                </div>
+                <div class="user-follow-button sl_sidebar_sugs_btns">
+                    <button onclick="javascript:window.location.href='/profile/?u={{ top.pointusr.nickname }}'"
+                            type="button" class="button small"><span>主页</span></button>
+                </div>
+            </div>
+        {% endfor %}
+        {% if signtops|length >= 10 %}
+            <div class="sl_sidebar_sugs">
+                <div class="sl_sidebar_sugs_text text-center">
+                    <a href="/todaypoint/" class="sl_user_link_name">点击查看更多</a>
+                </div>
+            </div>
+        {% endif %}
+        <div class="sl_sidebar_sugs_title">活跃用户 <i class="icon-feather-rotate-cw"></i></div>
+        {% for top in tops %}
+            <div class="sl_sidebar_sugs">
+                <div class="sl_sidebar_sugs_avatar">
+                    <a href="/profile/?u={{ top.nickname }}"><img
+                            src="{% if top.usravatr %}{{ top.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                            alt=""></a>
+                </div>
+                <div class="sl_sidebar_sugs_text">
+                    <a href="/profile/?u={{ top.nickname }}" class="sl_user_link_name">{{ top.nickname }} </a>
+                </div>
+                <div class="user-follow-button sl_sidebar_sugs_btns">
+                    <button onclick="javascript:window.location.href='/profile/?u={{ top.nickname }}'" type="button"
+                            class="button small"><span>主页</span></button>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="sl_sidebar_sugs_title">时间线 <i class="icon-feather-rotate-cw"></i></div>
+        {% for log in logs %}
+            {% if log.active_type == "thread" and log.id != None %}
+                <div class="sl_sidebar_sugs">
+                    <div class="sl_sidebar_sugs_avatar">
+                        <a href="/profile/?u={{ log.thauthor.nickname }}"><img src="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+                                
+                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                {% if log.thauthor.usravatr %}{{ log.thauthor.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                                                                               alt=""></a>
+                    </div>
+                    <div class="sl_sidebar_sugs_text">
+                        {% if log.markdown %}
+                            发表了 {{ log.title|slice:"10" }}{% if log.title|length > 10 %}...{% endif %}
+                        {% else %}
+                            发表了 {{ log.contents|slice:"10" }}{% if log.contents|length > 10 %}...{% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="user-follow-button sl_sidebar_sugs_btns">
+                        <button onclick="javascript:window.location.href='/thread/{{ log.id }}'" type="button"
+                                class="button small"><span>跳转</span></button>
+                    </div>
+                </div>
+            {% elif log.active_type == "good" and log.goodthed.id != None %}
+                <div class="sl_sidebar_sugs">
+                    <div class="sl_sidebar_sugs_avatar">
+                        <a href="/profile/?u={{ log.gooduser.nickname }}"><img src="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+                                
+                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                {% if log.gooduser.usravatr %}{{ log.gooduser.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                                                                               alt=""></a>
+                    </div>
+                    <div class="sl_sidebar_sugs_text">
+                        {% if log.goodthed.markdown %}
+                            点赞了 {{ log.goodthed.title|slice:"10" }}{% if log.goodthed.title|length > 10 %}...{% endif %}
+                        {% else %}
+                            点赞了
+                            {{ log.goodthed.contents|slice:"10" }}{% if log.goodthed.contents|length > 10 %}...
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="user-follow-button sl_sidebar_sugs_btns">
+                        <button onclick="javascript:window.location.href='/thread/{{ log.goodthed.id }}'" type="button"
+                                class="button small"><span>跳转</span></button>
+                    </div>
+                </div>
+            {% elif log.active_type == "comment" and log.cmthread.id != None %}
+                <div class="sl_sidebar_sugs">
+                    <div class="sl_sidebar_sugs_avatar">
+                        <a href="/profile/?u={{ log.cmauthor.nickname }}"><img src="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+                                
+                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                {% if log.cmauthor.usravatr %}{{ log.cmauthor.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                                                                               alt=""></a>
+                    </div>
+                    <div class="sl_sidebar_sugs_text">
+                        {% if log.cmthread.markdown %}
+                            评论了 {{ log.cmthread.title|slice:"10" }}{% if log.cmthread.title|length > 10 %}...{% endif %}
+                        {% else %}
+                            评论了
+                            {{ log.cmthread.contents|slice:"10" }}{% if log.cmthread.contents|length > 10 %}...
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="user-follow-button sl_sidebar_sugs_btns">
+                        <button onclick="javascript:window.location.href='/thread/{{ log.cmthread.id }}'" type="button"
+                                class="button small"><span>跳转</span></button>
+                    </div>
+                </div>
+            {% elif log.active_type == "market" and log.id != None %}
+                <div class="sl_sidebar_sugs">
+                    <div class="sl_sidebar_sugs_avatar">
+                        <a href="/profile/?u={{ log.postuser.nickname }}"><img src="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+                                
+                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                {% if log.postuser.usravatr %}{{ log.postuser.usravatr }}{% else %}{{ web_config.default }}{% endif %}"
+                                                                               alt=""></a>
+                    </div>
+                    <div class="sl_sidebar_sugs_text">
+                        新商品 {{ log.mketname.title|slice:"10" }}{% if log.mketname.title|length > 10 %}...{% endif %}
+                    </div>
+                    <div class="user-follow-button sl_sidebar_sugs_btns">
+                        <button onclick="javascript:window.location.href='/market/{{ log.id }}/'" type="button"
+                                class="button small"><span>跳转</span></button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="sl_sidebar_sugs_title mt-4">在线的伙伴 {{ online }} 人</div>
+        <div class="sl_sidebar_sugs_title mt-1">邀请你的朋友 <i class="icon-feather-rotate-cw"></i>
+        </div>
+        <div class="invite-user-form">
+            <div class="sl_form_fields invite-user-combine">
+                <input type="text" name="email" placeholder="请输入朋友的邮箱" id="towho" class="form-control">
+                <button class="button small" title="发送邀请" onclick="invite()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="footer-wrapper-sidebar mt-4">
+            <div class="footer-powered"><p>© 2021 4nmb.com</p></div>
+            <hr>
+            <ul class="list-inline">
+                <li><a href="/about/">关于我们</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
